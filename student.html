@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Database Management System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #2c3e50;
+      color: #fff;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .container {
+      width: 90%;
+      margin: 20px auto;
+    }
+
+    .form-box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    .form-box h2 {
+      margin-bottom: 15px;
+      color: #2c3e50;
+    }
+
+    .form-box label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .form-box input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-box button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .form-box button:hover {
+      background: #2980b9;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    table th, table td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    table th {
+      background: #3498db;
+      color: #fff;
+    }
+
+    table tr:hover {
+      background: #f1f1f1;
+    }
+
+    .delete-btn {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .delete-btn:hover {
+      background: #c0392b;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Student Database Management System</h1>
+  </header>
+
+  <div class="container">
+    <!-- Student Form -->
+    <div class="form-box">
+      <h2>Add Student</h2>
+      <form id="studentForm">
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" required placeholder="Enter student name">
+
+        <label for="roll">Roll Number:</label>
+        <input type="text" id="roll" required placeholder="Enter roll number">
+
+        <label for="class">Class:</label>
+        <input type="text" id="class" required placeholder="Enter class">
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" required placeholder="Enter email">
+
+        <button type="submit">Add Student</button>
+      </form>
+    </div>
+
+    <!-- Student Table -->
+    <div class="table-box">
+      <h2>Student Records</h2>
+      <table id="studentTable">
+        <thead>
+          <tr>
+            <th>Roll No.</th>
+            <th>Name</th>
+            <th>Class</th>
+            <th>Email</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Dynamic rows will be added here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const studentForm = document.getElementById("studentForm");
+    const studentTable = document.getElementById("studentTable").getElementsByTagName("tbody")[0];
+
+    studentForm.addEventListener("submit", function(event) {
+      event.preventDefault(); // stop page reload
+
+      // Get form values
+      const name = document.getElementById("name").value;
+      const roll = document.getElementById("roll").value;
+      const className = document.getElementById("class").value;
+      const email = document.getElementById("email").value;
+
+      // Create new row
+      const newRow = studentTable.insertRow();
+
+      newRow.innerHTML = `
+        <td>${roll}</td>
+        <td>${name}</td>
+        <td>${className}</td>
+        <td>${email}</td>
+        <td><button class="delete-btn">Delete</button></td>
+      `;
+
+      // Add delete functionality
+      newRow.querySelector(".delete-btn").addEventListener("click", function() {
+        newRow.remove();
+      });
+
+      // Clear form
+      studentForm.reset();
+    });
+  </script>
+</body>
+</html>
